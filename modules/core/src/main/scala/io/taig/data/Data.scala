@@ -1,4 +1,4 @@
-package io.taig.otter.data
+package io.taig.data
 
 import cats.Eq
 import cats.Show

@@ -3,7 +3,7 @@ package io.taig.data.circe
 import cats.syntax.all.*
 import io.circe.Json
 import io.circe.JsonObject
-import io.taig.otter.data.Data
+import io.taig.data.Data
 
 import java.math.BigDecimal as JBigDecimal
 import java.math.BigInteger as JBigInteger

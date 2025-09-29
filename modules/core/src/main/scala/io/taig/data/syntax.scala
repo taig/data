@@ -1,6 +1,6 @@
 package io.taig.data
 
-import io.taig.otter.data.Data
+import io.taig.data.Data
 
 object syntax:
   def arr[A <: Data](values: A*): Data.Array[A] = Data.Array(values.toVector)
