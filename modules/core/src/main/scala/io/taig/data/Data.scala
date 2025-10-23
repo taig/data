@@ -55,4 +55,4 @@ object Data:
 
   given show: Show[Data] =
     case value: Data.Value => Value.show.show(value)
-    case value: Data.Null  => "null"
+    case _: Data.Null  => "null"
