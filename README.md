@@ -1,3 +1,3 @@
 # data
 
-> TODO
+> Typed nested data: no more `Map[String, Any]`
