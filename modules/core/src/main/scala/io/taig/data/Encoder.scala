@@ -1,11 +1,11 @@
 package io.taig.data
 
 import cats.Contravariant
+import cats.Foldable
+import cats.syntax.all.*
 
 import java.math.BigDecimal as JBigDecimal
 import java.math.BigInteger as JBigInteger
-import cats.Foldable
-import cats.syntax.all.*
 import scala.Array as SArray
 
 trait Encoder[-A]:
