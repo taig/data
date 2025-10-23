@@ -3,7 +3,7 @@ package io.taig.data
 import io.taig.data.Data
 
 object syntax:
-  def arr[A <: Data](values: A*): Data.Array[A] = Data.Array(values.toVector)
+  def arr[A <: Data](values: A*): Data.Array[A] = Data.Array(values.toList)
 
   def obj[A <: Data](values: (String, A)*): Data.Object[A] = Data.Object(values.toList)
 

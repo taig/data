@@ -29,7 +29,7 @@ extension (self: Json)
 
 extension (self: JsonObject) def toDataObject: Data.Object[Data] = Data.Object(self.toList.map(_.map(_.toData)))
 
-extension (self: Vector[Json]) def toDataArray: Data.Array[Data] = Data.Array(self.map(_.toData))
+extension (self: Vector[Json]) def toDataArray: Data.Array[Data] = Data.Array(self.map(_.toData).toList)
 
 extension (self: Data)
   def toJson: Json = self match
@@ -49,4 +49,4 @@ extension (self: Data.Object[?])
   def toJsonObject: JsonObject =
     JsonObject.fromIterable(self.values.map { case (key, value) => key -> value.toJson })
 
-extension (self: Data.Array[Data]) def toJsonArray: Vector[Json] = self.values.map(_.toJson)
+extension (self: Data.Array[Data]) def toJsonArray: Vector[Json] = self.values.map(_.toJson).toVector

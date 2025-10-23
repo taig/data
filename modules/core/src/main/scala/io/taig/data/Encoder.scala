@@ -4,6 +4,9 @@ import cats.Contravariant
 
 import java.math.BigDecimal as JBigDecimal
 import java.math.BigInteger as JBigInteger
+import cats.Foldable
+import cats.syntax.all.*
+import scala.Array as SArray
 
 trait Encoder[-A]:
   self =>
@@ -97,11 +100,19 @@ object Encoder:
   given Encoder.Primitive[Boolean] = identity(_)
   given Encoder.Primitive[String] = identity(_)
 
-  given [A](using encoder: Encoder[A]): Encoder.Array[Vector[A]] =
-    values => Data.Array(values.map(encoder.encode))
+  given [A](using encoder: Encoder[A]): Encoder.Array[List[A]] = values => Data.Array(values.map(encoder.encode))
 
-  given [A: Encoder]: Encoder.Array[List[A]] =
-    Encoder.Array[Vector[A]].contramap(_.toVector)
+  given [F[_]: Foldable, A: Encoder]: Encoder.Array[F[A]] =
+    Encoder.Array[List[A]].contramap(_.toList)
+
+  given [A <: Iterable[?], B](using evidence: A <:< Iterable[B], encoder: Encoder[B]): Encoder.Array[A] =
+    Encoder.Array[List[B]].contramap(evidence(_).toList)
+
+  given [A: Encoder]: Encoder.Array[SArray[A]] =
+    Encoder.Array[List[A]].contramap(_.toList)
+
+  given [A: Encoder]: Encoder.Array[IArray[A]] =
+    Encoder.Array[List[A]].contramap(_.toList)
 
   given [A](using encoder: Encoder[A]): Encoder[Option[A]] =
     case Some(value) => Encoder[A].encode(value)
