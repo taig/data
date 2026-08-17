@@ -18,7 +18,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         cache: sbt
         distribution: temurin
@@ -38,7 +38,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         cache: sbt
         distribution: temurin
@@ -58,7 +58,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         cache: sbt
         distribution: temurin
@@ -81,7 +81,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         cache: sbt
         distribution: temurin
