@@ -59,8 +59,15 @@ object GitHubActionsGenerator {
       Json.obj("run" := "sbt scalafixCheckAll")
     )
 
+    val Test: Json = Job(name = "Test", mode = "CI")(
+      Step.Checkout,
+      Step.SetupJava,
+      Step.SetupSbt,
+      Json.obj("run" := "sbt test")
+    )
+
     val Deploy: Json =
-      Job(name = "Deploy", mode = "RELEASE", needs = List("blowout", "scalafmt", "scalafix"))(
+      Job(name = "Deploy", mode = "RELEASE", needs = List("blowout", "scalafmt", "scalafix", "test"))(
         Step.Checkout,
         Step.SetupJava,
         Step.SetupSbt,
@@ -86,6 +93,7 @@ object GitHubActionsGenerator {
       "blowout" := Job.Blowout,
       "scalafix" := Job.Scalafix,
       "scalafmt" := Job.Scalafmt,
+      "test" := Job.Test,
       "deploy" := Job.Deploy
     )
   )
@@ -99,6 +107,7 @@ object GitHubActionsGenerator {
       "blowout" := Job.Blowout,
       "scalafix" := Job.Scalafix,
       "scalafmt" := Job.Scalafmt,
+      "test" := Job.Test,
       "deploy" := Job.Deploy
     )
   )
@@ -113,7 +122,8 @@ object GitHubActionsGenerator {
     "jobs" := Json.obj(
       "blowout" := Job.Blowout,
       "scalafix" := Job.Scalafix,
-      "scalafmt" := Job.Scalafmt
+      "scalafmt" := Job.Scalafmt,
+      "test" := Job.Test
     )
   )
 }
