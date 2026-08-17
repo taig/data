@@ -1,15 +1,9 @@
 import sbtcrossproject.CrossProject
 
-val Version = new {
-  val Cats = "2.13.0"
-  val Circe = "0.14.15"
-  val Scala = "3.3.7"
-}
-
 def module(identifier: Option[String], jvmOnly: Boolean = false): CrossProject = {
   val platforms = JVMPlatform :: (if (jvmOnly) Nil else JSPlatform :: Nil)
 
-  CrossProject(identifier.getOrElse("root"), file(identifier.fold(".")("modules/" + _)))(platforms: _*)
+  CrossProject(identifier.getOrElse("root"), file(identifier.fold(".")("modules/" + _)))(platforms *)
     .crossType(CrossType.Pure)
     .withoutSuffixFor(JVMPlatform)
     .build()
@@ -47,14 +41,14 @@ lazy val root = module(identifier = None)
 lazy val core = module(identifier = Some("core"))
   .settings(
     libraryDependencies ++=
-      "org.typelevel" %%% "cats-core" % Version.Cats ::
+      "org.typelevel" %% "cats-core" % Version.Cats ::
         Nil
   )
 
 lazy val circe = module(identifier = Some("circe"))
   .settings(
     libraryDependencies ++=
-      "io.circe" %%% "circe-core" % Version.Circe ::
+      "io.circe" %% "circe-core" % Version.Circe ::
         Nil
   )
   .dependsOn(core)
