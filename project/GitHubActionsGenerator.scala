@@ -20,7 +20,7 @@ object GitHubActionsGenerator {
 
     val Checkout: Json = Json.obj(
       "name" := "Checkout",
-      "uses" := "actions/checkout@v4",
+      "uses" := "actions/checkout@v7",
       "with" := Json.obj(
         "fetch-depth" := 0
       )
