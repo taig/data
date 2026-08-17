@@ -30,8 +30,6 @@ inThisBuild(
   )
 )
 
-noPublishSettings
-
 lazy val root = module(identifier = None)
   .enablePlugins(BlowoutYamlPlugin)
   .settings(noPublishSettings)
