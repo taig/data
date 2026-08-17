@@ -9,7 +9,8 @@ def module(identifier: Option[String], jvmOnly: Boolean = false): CrossProject =
     .build()
     .settings(
       Compile / scalacOptions ++= "-source:future" :: "-rewrite" :: "-new-syntax" :: "-Wunused:all" :: Nil,
-      name := "data" + identifier.fold("")("-" + _)
+      name := "data" + identifier.fold("")("-" + _),
+      testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
     )
 }
 
@@ -42,6 +43,8 @@ lazy val core = module(identifier = Some("core"))
   .settings(
     libraryDependencies ++=
       "org.typelevel" %% "cats-core" % Version.Cats ::
+        "dev.zio" %% "zio-test" % Version.Zio % "test" ::
+        "dev.zio" %% "zio-test-sbt" % Version.Zio % "test" ::
         Nil
   )
 
@@ -51,4 +54,4 @@ lazy val circe = module(identifier = Some("circe"))
       "io.circe" %% "circe-core" % Version.Circe ::
         Nil
   )
-  .dependsOn(core)
+  .dependsOn(core % "compile->compile;test->test")

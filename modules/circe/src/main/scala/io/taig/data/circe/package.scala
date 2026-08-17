@@ -21,6 +21,9 @@ extension (self: Json)
         )
         .orElse(number.toBigInt.map(_.bigInteger))
         .orElse(number.toBigDecimal.map(_.bigDecimal))
+        // last resort: no exact representation exists in any of the types above (e.g. the exponent
+        // itself overflows Int). toDouble's own contract is "nearest Double", and Infinity is the
+        // correct nearest value for a magnitude this large, so this is intentional, not a bug.
         .getOrElse(number.toDouble),
     jsonString = identity,
     jsonArray = _.toDataArray,
