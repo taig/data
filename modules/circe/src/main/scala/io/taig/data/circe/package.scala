@@ -35,6 +35,8 @@ extension (self: JsonObject) def toDataObject: Data.Object[Data] = Data.Object(s
 extension (self: Vector[Json]) def toDataArray: Data.Array[Data] = Data.Array(self.map(_.toData).toList)
 
 extension (self: Data)
+  // Note that Data.Number admits NaN and Infinity, which JSON has no number for: the float and double cases below keep
+  // them as strings, where circe's own Encoder[Double] would write null instead.
   def toJson: Json = self match
     case data: Long              => Json.fromLong(data)
     case data: Int               => Json.fromInt(data)
