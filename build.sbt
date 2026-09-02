@@ -16,10 +16,10 @@ def module(identifier: Option[String], jvmOnly: Boolean = false): CrossProject =
 
 inThisBuild(
   Def.settings(
-    developers := List(Developer("taig", "Niklas Klein", "mail@taig.io", url("https://taig.io/"))),
+    developers := List(Developer("taig", "Niklas Klein", "mail@taig.io", uri("https://taig.io/"))),
     dynverVTagPrefix := false,
-    homepage := Some(url("https://github.com/taig/data/")),
-    licenses := List("MIT" -> url("https://raw.githubusercontent.com/taig/data/main/LICENSE")),
+    homepage := Some(uri("https://github.com/taig/data/")),
+    licenses := List("MIT" -> uri("https://raw.githubusercontent.com/taig/data/main/LICENSE")),
     scalaVersion := Version.Scala,
     versionScheme := Some("early-semver")
   )
