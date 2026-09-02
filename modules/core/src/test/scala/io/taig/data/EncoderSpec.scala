@@ -79,6 +79,16 @@ object EncoderSpec extends ZIOSpecDefault:
             "2026-08-17T12:00:00+02:00[Europe/Berlin]"
         )
       },
+      test("time-of-day values spell out the seconds, unlike toString") {
+        assertTrue(
+          LocalTime.of(9, 0).asData == "09:00:00",
+          LocalDateTime.of(2026, 8, 17, 9, 0).asData == "2026-08-17T09:00:00",
+          OffsetTime.of(9, 0, 0, 0, ZoneOffset.ofHours(2)).asData == "09:00:00+02:00",
+          OffsetDateTime.of(2026, 8, 17, 9, 0, 0, 0, ZoneOffset.ofHours(2)).asData == "2026-08-17T09:00:00+02:00",
+          ZonedDateTime.of(2026, 8, 17, 9, 0, 0, 0, ZoneId.of("Europe/Berlin")).asData ==
+            "2026-08-17T09:00:00+02:00[Europe/Berlin]"
+        )
+      },
       test("amounts, zones and partial dates encode with their own formats") {
         assertTrue(
           Duration.ofSeconds(90).asData == "PT1M30S",
